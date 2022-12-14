@@ -48,7 +48,7 @@ class _BirdState extends State<Bird> with SingleTickerProviderStateMixin {
       top: 0,
       left: 0,
       child: AnimatedBuilder(
-        animation: _controller,
+        animation: CurvedAnimation(curve: Curves.slowMiddle, parent: _controller),
         builder: (BuildContext context, Widget? child) {
           return Transform.translate(
             offset: calculatePosition(_controller.value),

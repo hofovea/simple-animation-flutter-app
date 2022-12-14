@@ -14,7 +14,7 @@ class Grass extends StatelessWidget {
       height: constraints.maxHeight * grassHeightMultiplier,
       bottom: 0,
       child: Container(
-        color: Colors.green,
+        color: Colors.green.shade800,
       ),
     );
   }
