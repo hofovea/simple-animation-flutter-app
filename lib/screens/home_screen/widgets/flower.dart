@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class Flower extends StatelessWidget {
   final _numberOfFlowers = 6;
-  final _flowerSizeMultiplier = 0.3;
+  late final _flowerSize = 0.3 * constraints.maxWidth;
   final _minFlowerPositionXMultiplier = 0;
   final _maxFlowerPositionXMultiplier = 0.78;
   final _minFlowerPositionYMultiplier = 0.01;
@@ -33,73 +33,19 @@ class Flower extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
-        children: _flowerPositionList
-            .map(
-              (e) => Positioned(
-                bottom: e.y.toDouble(),
-                left: e.x.toDouble(),
-                child: Image.asset(
-                  _flowerImagePath,
-                  width: constraints.maxWidth * _flowerSizeMultiplier,
-                  height: constraints.maxWidth * _flowerSizeMultiplier,
-                ),
+      children: _flowerPositionList
+          .map(
+            (e) => Positioned(
+              bottom: e.y.toDouble(),
+              left: e.x.toDouble(),
+              child: Image.asset(
+                _flowerImagePath,
+                width: _flowerSize,
+                height: _flowerSize,
               ),
-            )
-            .toList()
-        //   Positioned(
-        //     bottom: constraints.maxHeight * Random().nextDouble() * _maxFlowerPositionYMultiplier -
-        //         _minFlowerPositionYMultiplier,
-        //     left: constraints.maxWidth * Random().nextDouble() * _maxFlowerPositionXMultiplier -
-        //         _minFlowerPositionXMultiplier,
-        //     child: Image.asset(
-        //       _flowerImagePath,
-        //       width: constraints.maxWidth * _flowerSizeMultiplier,
-        //       height: constraints.maxWidth * _flowerSizeMultiplier,
-        //     ),
-        //   ),
-        //   Positioned(
-        //     bottom: constraints.maxHeight * Random().nextDouble() * _maxFlowerPositionYMultiplier -
-        //         _minFlowerPositionYMultiplier,
-        //     left: constraints.maxWidth * Random().nextDouble() * _maxFlowerPositionXMultiplier -
-        //         _minFlowerPositionXMultiplier,
-        //     child: Image.asset(
-        //       _flowerImagePath,
-        //       width: constraints.maxWidth * _flowerSizeMultiplier,
-        //       height: constraints.maxWidth * _flowerSizeMultiplier,
-        //     ),
-        //   ),
-        //   Positioned(
-        //     bottom: constraints.maxHeight * Random().nextDouble() * _maxFlowerPositionYMultiplier -
-        //         _minFlowerPositionYMultiplier,
-        //     left: constraints.maxWidth * Random().nextDouble() * _maxFlowerPositionXMultiplier -
-        //         _minFlowerPositionXMultiplier,
-        //     child: Image.asset(
-        //       _flowerImagePath,
-        //       width: constraints.maxWidth * _flowerSizeMultiplier,
-        //       height: constraints.maxWidth * _flowerSizeMultiplier,
-        //     ),
-        //   ),
-        //   Positioned(
-        //     bottom: constraints.maxHeight * Random().nextDouble() * _maxFlowerPositionYMultiplier -
-        //         _minFlowerPositionYMultiplier,
-        //     left: constraints.maxWidth * Random().nextDouble() * _maxFlowerPositionXMultiplier -
-        //         _minFlowerPositionXMultiplier,
-        //     child: Image.asset(
-        //       _flowerImagePath,
-        //       width: constraints.maxWidth * _flowerSizeMultiplier,
-        //       height: constraints.maxWidth * _flowerSizeMultiplier,
-        //     ),
-        //   ),
-        //   Positioned(
-        //     bottom: flowerPositionList[index].y.ceilToDouble(),
-        //     left: flowerPositionList[index].x.ceilToDouble(),
-        //     child: Image.asset(
-        //       _flowerImagePath,
-        //       width: constraints.maxWidth * _flowerSizeMultiplier,
-        //       height: constraints.maxWidth * _flowerSizeMultiplier,
-        //     ),
-        //   ),
-        // ],
-        );
+            ),
+          )
+          .toList(),
+    );
   }
 }

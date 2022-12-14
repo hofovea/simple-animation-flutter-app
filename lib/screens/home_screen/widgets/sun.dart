@@ -10,11 +10,11 @@ class Sun extends StatefulWidget {
 }
 
 class _SunState extends State<Sun> with SingleTickerProviderStateMixin {
-  final sunImagePath = 'assets/images/sun.png';
-  final sunSizeMultiplier = 0.4;
-  final sunPositionXMultiplier = -0.05;
-  final sunPositionYMultiplier = -0.01;
-  final animationDuration = const Duration(seconds: 2);
+  final _sunImagePath = 'assets/images/sun.png';
+  late final _sunSize = 0.4 * widget.constraints.maxWidth;
+  final _sunPositionXMultiplier = -0.05;
+  final _sunPositionYMultiplier = -0.01;
+  final _animationDuration = const Duration(seconds: 2);
 
   late AnimationController _controller;
 
@@ -22,7 +22,7 @@ class _SunState extends State<Sun> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     _controller = AnimationController(
-        vsync: this, duration: animationDuration, lowerBound: 0.7, upperBound: 1.3)
+        vsync: this, duration: _animationDuration, lowerBound: 0.7, upperBound: 1.3)
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
           _controller.reverse();
@@ -42,8 +42,8 @@ class _SunState extends State<Sun> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: widget.constraints.maxHeight * sunPositionYMultiplier,
-      left: widget.constraints.maxWidth * sunPositionXMultiplier,
+      top: widget.constraints.maxHeight * _sunPositionYMultiplier,
+      left: widget.constraints.maxWidth * _sunPositionXMultiplier,
       child: AnimatedBuilder(
         animation: _controller,
         builder: (BuildContext context, Widget? child) {
@@ -53,9 +53,9 @@ class _SunState extends State<Sun> with SingleTickerProviderStateMixin {
           );
         },
         child: Image.asset(
-          sunImagePath,
-          width: widget.constraints.maxWidth * sunSizeMultiplier,
-          height: widget.constraints.maxWidth * sunSizeMultiplier,
+          _sunImagePath,
+          width: _sunSize,
+          height: _sunSize,
         ),
       ),
     );

@@ -11,14 +11,14 @@ class WindmillCross extends StatefulWidget {
 }
 
 class _WindmillCrossState extends State<WindmillCross> with SingleTickerProviderStateMixin {
-  final crossSizeMultiplier = 0.7;
-  final crossPositionXMultiplier = 0.13;
-  final crossPositionYMultiplier = 0.04;
-  final crossImagePath = 'assets/images/cross.png';
-  final animationDuration = const Duration(seconds: 2);
+  late final _crossSize = 0.7 * widget.constraints.maxWidth;
+  final _crossPositionXMultiplier = 0.13;
+  final _crossPositionYMultiplier = 0.04;
+  final _crossImagePath = 'assets/images/cross.png';
+  final _animationDuration = const Duration(seconds: 2);
 
   late final AnimationController _controller =
-      AnimationController(vsync: this, duration: animationDuration)
+      AnimationController(vsync: this, duration: _animationDuration)
         ..addStatusListener((status) {
           if (status == AnimationStatus.completed) {
             _controller.reverse();
@@ -37,8 +37,8 @@ class _WindmillCrossState extends State<WindmillCross> with SingleTickerProvider
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: widget.constraints.maxHeight * crossPositionYMultiplier,
-      left: widget.constraints.maxWidth * crossPositionXMultiplier,
+      top: widget.constraints.maxHeight * _crossPositionYMultiplier,
+      left: widget.constraints.maxWidth * _crossPositionXMultiplier,
       child: AnimatedBuilder(
         animation: _controller,
         builder: (_, child) {
@@ -48,9 +48,9 @@ class _WindmillCrossState extends State<WindmillCross> with SingleTickerProvider
           );
         },
         child: Image.asset(
-          crossImagePath,
-          width: widget.constraints.maxWidth * crossSizeMultiplier,
-          height: widget.constraints.maxWidth * crossSizeMultiplier,
+          _crossImagePath,
+          width: _crossSize,
+          height: _crossSize,
         ),
       ),
     );

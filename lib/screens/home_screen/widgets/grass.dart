@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Grass extends StatelessWidget {
-  final grassHeightMultiplier = 0.3;
+  final _grassHeightMultiplier = 0.3;
 
   final BoxConstraints constraints;
 
@@ -11,7 +11,7 @@ class Grass extends StatelessWidget {
   Widget build(BuildContext context) {
     return Positioned(
       width: constraints.maxWidth,
-      height: constraints.maxHeight * grassHeightMultiplier,
+      height: constraints.maxHeight * _grassHeightMultiplier,
       bottom: 0,
       child: Container(
         color: Colors.green.shade800,

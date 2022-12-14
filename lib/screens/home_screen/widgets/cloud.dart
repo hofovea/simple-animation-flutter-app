@@ -10,11 +10,11 @@ class Cloud extends StatefulWidget {
 }
 
 class _CloudState extends State<Cloud> with SingleTickerProviderStateMixin {
-  final cloudImagePath = 'assets/images/cloud.png';
-  final cloudSizeMultiplier = 0.4;
-  final cloudPositionXMultiplier = 0;
-  final cloudPositionYMultiplier = 0.2;
-  final animationDuration = const Duration(seconds: 6);
+  final _cloudImagePath = 'assets/images/cloud.png';
+  late final _cloudSize = 0.4 * widget.constraints.maxWidth;
+  final _cloudPositionXMultiplier = 0;
+  final _cloudPositionYMultiplier = 0.2;
+  final _animationDuration = const Duration(seconds: 6);
 
   late AnimationController _controller;
 
@@ -23,8 +23,8 @@ class _CloudState extends State<Cloud> with SingleTickerProviderStateMixin {
     super.initState();
     _controller = AnimationController(
         vsync: this,
-        duration: animationDuration,
-        lowerBound: -widget.constraints.maxWidth * cloudSizeMultiplier,
+        duration: _animationDuration,
+        lowerBound: -_cloudSize,
         upperBound: widget.constraints.maxWidth)
       ..addStatusListener(
         (status) {
@@ -45,8 +45,8 @@ class _CloudState extends State<Cloud> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: widget.constraints.maxHeight * cloudPositionYMultiplier,
-      left: widget.constraints.maxWidth * cloudPositionXMultiplier,
+      top: widget.constraints.maxHeight * _cloudPositionYMultiplier,
+      left: widget.constraints.maxWidth * _cloudPositionXMultiplier,
       child: AnimatedBuilder(
         animation: _controller,
         builder: (BuildContext context, Widget? child) {
@@ -56,9 +56,9 @@ class _CloudState extends State<Cloud> with SingleTickerProviderStateMixin {
           );
         },
         child: Image.asset(
-          cloudImagePath,
-          height: widget.constraints.maxWidth * cloudSizeMultiplier,
-          width: widget.constraints.maxWidth * cloudSizeMultiplier,
+          _cloudImagePath,
+          height: _cloudSize,
+          width: _cloudSize,
         ),
       ),
     );

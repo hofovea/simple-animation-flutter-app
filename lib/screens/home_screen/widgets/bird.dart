@@ -12,11 +12,10 @@ class Bird extends StatefulWidget {
 }
 
 class _BirdState extends State<Bird> with SingleTickerProviderStateMixin {
-  final birdSizeMultiplier = 0.2;
-  final birdPositionXMultiplier = 0;
-  final birdPositionYMultiplier = 0.45;
-  final birdImagePath = 'assets/images/bird.png';
-  final animationDuration = const Duration(seconds: 4);
+  late final _birdSize = 0.2 * widget.constraints.maxWidth;
+  final _birdPositionYMultiplier = 0.45;
+  final _birdImagePath = 'assets/images/bird.png';
+  final _animationDuration = const Duration(seconds: 4);
   late final Path _path = drawPath();
 
   late AnimationController _controller;
@@ -25,7 +24,7 @@ class _BirdState extends State<Bird> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     _controller =
-        AnimationController(vsync: this, duration: animationDuration, lowerBound: 0, upperBound: 1)
+        AnimationController(vsync: this, duration: _animationDuration, lowerBound: 0, upperBound: 1)
           ..addStatusListener(
             (status) {
               if (status == AnimationStatus.completed) {
@@ -56,9 +55,9 @@ class _BirdState extends State<Bird> with SingleTickerProviderStateMixin {
           );
         },
         child: Image.asset(
-          birdImagePath,
-          height: widget.constraints.maxWidth * birdSizeMultiplier,
-          width: widget.constraints.maxWidth * birdSizeMultiplier,
+          _birdImagePath,
+          height: _birdSize,
+          width: _birdSize,
         ),
       ),
     );
@@ -74,11 +73,11 @@ class _BirdState extends State<Bird> with SingleTickerProviderStateMixin {
 
   Path drawPath() {
     Size size =
-        Size(widget.constraints.maxWidth, widget.constraints.maxHeight * birdPositionYMultiplier);
+        Size(widget.constraints.maxWidth, widget.constraints.maxHeight * _birdPositionYMultiplier);
     Path path = Path();
     path.moveTo(0, size.height);
-    path.quadraticBezierTo(size.width / 2, 0, size.width,
-        size.height + widget.constraints.maxWidth * birdSizeMultiplier);
+    path.quadraticBezierTo(
+        size.width / 2, 0, size.width, size.height + _birdSize);
     return path;
   }
 }
