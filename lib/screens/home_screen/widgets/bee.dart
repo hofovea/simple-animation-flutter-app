@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class Bee extends StatefulWidget {
@@ -10,18 +12,32 @@ class Bee extends StatefulWidget {
 }
 
 class _BeeState extends State<Bee> with SingleTickerProviderStateMixin {
-  late final beeSize = 0.2 * widget.constraints.maxWidth;
-  final beePositionXMultiplier = 0;
-  final beePositionYMultiplier = 0.45;
-  final beeImagePath = 'assets/images/bee.png';
+  late final _beeSize = 0.1 * widget.constraints.maxWidth;
+  final _beePositionXMultiplier = 0.01;
+  final _beePositionYMultiplier = 0.5;
+  final _beeImagePath = 'assets/images/bee.png';
+  final _animationDuration = const Duration(seconds: 4);
+  final _destinationOffset = const Offset(300, 300);
 
-  late AnimationController _controller;
+  late final AnimationController _controller =
+      AnimationController(vsync: this, duration: _animationDuration)
+        ..addStatusListener(
+          (status) {
+            if (status == AnimationStatus.completed) {
+              _controller.reverse();
+            } else if (status == AnimationStatus.dismissed) {
+              _controller.forward();
+            }
+          },
+        )
+        ..forward();
 
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(vsync: this);
-  }
+  late final _animation = Tween<Offset>(
+    begin: Offset.zero,
+    end: _destinationOffset,
+  ).animate(
+    CurvedAnimation(parent: _controller, curve: Curves.bounceInOut),
+  );
 
   @override
   void dispose() {
@@ -32,10 +48,19 @@ class _BeeState extends State<Bee> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      child: Image.asset(
-        beeImagePath,
-        height: beeSize,
-        width: beeSize,
+      bottom: widget.constraints.maxHeight * _beePositionYMultiplier,
+      left: widget.constraints.maxWidth * _beePositionXMultiplier,
+      child: AnimatedBuilder(
+        animation: _animation,
+        builder: (BuildContext context, Widget? child) {
+          //print('inside animation: ${_animation.value}');
+          return Transform.translate(offset: _animation.value, child: child);
+        },
+        child: Image.asset(
+          _beeImagePath,
+          height: _beeSize,
+          width: _beeSize,
+        ),
       ),
     );
   }
