@@ -29,9 +29,7 @@ class _CloudState extends State<Cloud> with SingleTickerProviderStateMixin {
       ..addStatusListener(
         (status) {
           if (status == AnimationStatus.completed) {
-            _controller.reset();
-          } else if (status == AnimationStatus.dismissed) {
-            _controller.forward();
+            _controller.repeat();
           }
         },
       )

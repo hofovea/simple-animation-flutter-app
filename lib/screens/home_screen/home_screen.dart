@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simple_animation_flutter_app/screens/home_screen/widgets/bird.dart';
 import 'package:simple_animation_flutter_app/screens/home_screen/widgets/cloud.dart';
 import 'package:simple_animation_flutter_app/screens/home_screen/widgets/grass.dart';
 import 'package:simple_animation_flutter_app/screens/home_screen/widgets/sun.dart';
@@ -26,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 WindmillBase(constraints: constraints),
                 Sun(constraints: constraints),
                 Cloud(constraints: constraints),
+                Bird(constraints: constraints),
                 WindmillCross(constraints: constraints),
               ],
             ),
