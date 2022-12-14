@@ -15,11 +15,8 @@ class AnimationApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Flutter Demo'),
-        ),
-        body: const HomeScreen(),
+      home: const Scaffold(
+        body: HomeScreen(),
       ),
     );
   }
